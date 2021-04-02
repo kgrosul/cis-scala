@@ -1,5 +1,6 @@
 package homeworks.homework1
 
+
 object task4 extends App {
   /**
    * Реализуйте метод optionPairMax, возвращающий максимум двух Option.
@@ -7,7 +8,12 @@ object task4 extends App {
    * Если определен только один Option, нужно вернуть его.
    * Если ни один не определен, нужно вернуть None.
    */
-  def optionPairMax(option1: Option[Int], option2: Option[Int]): Option[Int] = ???
+  def optionPairMax(option1: Option[Int], option2: Option[Int]): Option[Int] = (option1, option2) match {
+    case (first, second) if first.isEmpty => second
+    case (first, second) if second.isEmpty => first
+    case (Some(first), Some(second)) if first > second => Some(first)
+    case (_, second) => second
+  }
 
   println(optionPairMax(Some(3), Some(5)))
   // Some(5)
