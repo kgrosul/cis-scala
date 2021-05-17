@@ -34,7 +34,10 @@ object task2 extends IOApp {
   //
   // Hint: воспользуетесь методом traverse, который доступен благодаря импорту cats.implicits._
   // Примеры - .parTraverse из семинара 8
-  def getCities(codes: List[String]): IO[List[City]] = ???
+  def getCities(codes: List[String]): IO[List[City]] = for {
+    cities <- codes.traverse(getCity)
+    sortedCities <- IO(cities.sortWith(_.priority > _.priority))
+  } yield sortedCities
 
   def run(args: List[String]): IO[ExitCode] =
     for {
